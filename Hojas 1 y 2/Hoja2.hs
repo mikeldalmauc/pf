@@ -10,7 +10,7 @@ quitaUno e (x:s)
  
 -- 1
 quitaTodos :: Eq a => a -> [a] -> [a]
-quitaTodos e l = filter (e/=) l
+quitaTodos e l = filter (e/=) l 
 
 -- 2
 quitaRep :: Eq a => [a] -> [a]
@@ -31,3 +31,22 @@ dif [] _ = []
 dif s [] = s
 dif l (x:s) = dif (quitaUno x l) s
 
+
+-- 12
+permutar :: Eq a => [a] -> [[a]]
+permutar [] = [[]]
+permutar as =  do a <- as
+                  let l = delete a as
+                  ls <- permutar l
+                  return $ a:ls
+
+
+delete :: Eq a => a -> [a] -> [a]
+delete _ [] = []
+delete a (x:xs)
+  | a == x = xs
+  | otherwise = x:(delete a xs)
+
+-- 14
+
+expr :: Eq a => a -> []
