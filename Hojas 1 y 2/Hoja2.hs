@@ -1,26 +1,42 @@
 
 module Hoja2 where 
 
+-- 1
 quitaUno :: Eq a => a -> [a] -> [a]
-quitaUno e l = dropWhile (e==) l 
+quitaUno e [] = []
+quitaUno e (x:s)
+   | e == x = s
+   | otherwise = x:quitaUno e s
+ 
+-- 1 
+quitaTodos :: Eq a => a -> [a] -> [a]
+quitaTodos e = filter (e /=)
 
+-- 2
 quitaRep :: Eq a => [a] -> [a]
 quitaRep [] = []
-quitaRep (x:xs)
-  | otherwise = if contains x xs then quitaRep xs else x:(quitaRep xs)
+quitaRep (x:s) = x:quitaRep(quitaTodos x s)
 
-quitaRep2 :: Eq a => [a] -> [a]
-quitaRep2 [] = []
-quitaRep2 x:xs = x:quitaRep2(quitaUno x xs)
-
-contains :: Eq a => a -> [a] -> Bool
-contains _ [] = False
-contains x (y:ys)
-  | x == y = True 
-  | x /= y = (contains x ys)
-  
-  
-
-% Dif usando quita uno
+-- 3
 dif :: Eq a => [a] -> [a] -> [a]
-dif a b = map (quitaUno a) b
+dif [] _ = []
+dif s [] = s
+dif l (x:s) = dif (quitaUno x l) s
+
+
+-- 12
+permutar :: Eq a => [a] -> [[a]]
+permutar [] = [[]]
+permutar as =  do a <- as
+                  ls <- permutar (delete a as)
+                  return $ a:ls
+
+
+delete :: Eq a => a -> [a] -> [a]
+delete _ [] = []
+delete a (x:xs)
+  | a == x = xs
+  | otherwise = x:delete a xs
+
+-- 14
+

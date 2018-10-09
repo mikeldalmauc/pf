@@ -7,7 +7,7 @@
 module Dibujos where
 
 type Dibujo = [Linea]
-type Linea = [Char]
+type Linea = String
 
 casa:: Dibujo
 
@@ -69,7 +69,7 @@ superponer :: Dibujo -> Dibujo -> Dibujo
 superponer = zipWith (zipWith combinar)
 
 combinar :: Char -> Char -> Char
-combinar x y = if (x=='.' && y=='.') then '.' else '#'
+combinar x y = if x=='.' && y=='.' then '.' else '#'
 
 invertirColor :: Dibujo -> Dibujo
 invertirColor = map (map invertir)
